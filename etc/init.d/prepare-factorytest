@@ -1,0 +1,36 @@
+#! /bin/sh
+
+PLUGIN_FILE_PYO='/usr/lib/enigma2/python/Plugins/Extensions/FactoryTest/plugin.pyo'
+PLUGIN_FILE_PY='/usr/lib/enigma2/python/Plugins/Extensions/FactoryTest/plugin.py'
+CONFIG_FILE='/etc/enigma2/settings'
+
+SATELLITE_LIST='/etc/enigma2/satellites.xml'
+SATELLITE_LIST_BACKUP='/etc/enigma2/satellites.xml.factory'
+
+if [ ! -d /etc/enigma2 ]; then
+	mkdir /etc/enigma2
+fi
+
+if [ -f $PLUGIN_FILE_PY -o -f $PLUGIN_FILE_PYO ]; then
+    echo 'Preparing for factory test....'
+	rm -f $CONFIG_FILE
+	echo 'config.misc.firstrun=false' >> $CONFIG_FILE
+	echo 'config.misc.initialchannelselection=false' >> $CONFIG_FILE
+	echo 'config.misc.languageselected=false' >> $CONFIG_FILE
+	echo 'config.misc.videowizardenabled=false' >> $CONFIG_FILE
+	echo 'config.tv.lastroot=1:7:1:0:0:0:0:0:0:0:FROM BOUQUET "bouquets.tv" ORDER BY bouquet;' >> $CONFIG_FILE
+	echo 'config.av.videoport=DVI' >> $CONFIG_FILE
+	echo 'config.audio.volume=100' >> $CONFIG_FILE
+	echo 'config.plugins.FanSetup.mode=on' >> $CONFIG_FILE
+	echo 'config.usage.hide_ci_messages=true' >> $CONFIG_FILE
+	echo 'config.plugins.VFD_ini.showClock=Off' >> $CONFIG_FILE
+	
+fi
+
+if [ -f $SATELLITE_LIST ]; then
+	mv $SATELLITE_LIST $SATELLITE_LIST_BACKUP
+fi
+
+cp /usr/lib/enigma2/python/Plugins/Extensions/FactoryTest/satellites.xml /etc/enigma2/satellites.xml
+
+sync
