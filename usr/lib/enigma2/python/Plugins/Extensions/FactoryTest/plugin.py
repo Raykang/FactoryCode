@@ -1403,15 +1403,15 @@ class cFactoryTestPlugin(Screen):
             else:
                 self.ledtest = True
         else:
-            if fileExists("/proc/stb/lcd/powerled"):
-                f = open("/proc/stb/lcd/powerled", "w")
-                f.write("0")
-                f.close()
-            if self.boxtype == '7300S' or self.boxtype == '7400S':
-                if fileExists("/proc/stb/lcd/oled_brightness"):
-                    f = open("/proc/stb/lcd/oled_brightness", "w")
-                    f.write("0")
-                    f.close()                   
+#            if fileExists("/proc/stb/lcd/powerled"):
+#                f = open("/proc/stb/lcd/powerled", "w")
+#                f.write("0")
+#                f.close()
+#            if self.boxtype == '7300S' or self.boxtype == '7400S':
+#                if fileExists("/proc/stb/lcd/oled_brightness"):
+#                    f = open("/proc/stb/lcd/oled_brightness", "w")
+#                    f.write("0")
+#                    f.close()
             self.hideMessage()
             self.want_ok = False
             self.type_test = self.TEST_NONE
