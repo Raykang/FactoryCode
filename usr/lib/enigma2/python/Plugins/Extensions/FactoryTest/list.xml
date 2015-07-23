@@ -1,4 +1,4 @@
-﻿<?xml version="1.0"  encoding="UTF-8" ?>
+<?xml version="1.0"  encoding="UTF-8" ?>
 <xml>
     <satellite>
         <transponder>
@@ -191,7 +191,7 @@
             <fec_inner>0</fec_inner> <!-- FEC_Auto=0, FEC_1_2=1, FEC_2_3=2, FEC_3_4=3, FEC_5_6=4, FEC_7_8=5, FEC_8_9=6, FEC_6_7=10, FEC_None=15 -->
             <inversion>2</inversion> <!-- Inversion_Off, Inversion_On, Inversion_Unknown -->
             <system>0</system> <!-- System_DVB_C_ANNEX_A, System_DVB_C_ANNEX_C -->
-            <service>1:0:1:2D:1:816:FFFF0000:0:0:0</service>
+            <service>1:0:1:1:1:816:FFFF0000:0:0:0</service>
         </transponder>
         
         <transponder>
@@ -203,7 +203,7 @@
             <fec_inner>0</fec_inner> <!-- FEC_Auto=0, FEC_1_2=1, FEC_2_3=2, FEC_3_4=3, FEC_5_6=4, FEC_7_8=5, FEC_8_9=6, FEC_6_7=10, FEC_None=15 -->
             <inversion>2</inversion> <!-- Inversion_Off, Inversion_On, Inversion_Unknown -->
             <system>0</system> <!-- System_DVB_C_ANNEX_A, System_DVB_C_ANNEX_C -->
-            <service>1:0:1:2D:1:816:FFFF0000:0:0:0</service>
+            <service>1:0:1:1:1:816:FFFF0000:0:0:0</service>
         </transponder>
         
         <transponder>
@@ -215,7 +215,7 @@
             <fec_inner>0</fec_inner> <!-- FEC_Auto=0, FEC_1_2=1, FEC_2_3=2, FEC_3_4=3, FEC_5_6=4, FEC_7_8=5, FEC_8_9=6, FEC_6_7=10, FEC_None=15 -->
             <inversion>2</inversion> <!-- Inversion_Off, Inversion_On, Inversion_Unknown -->
             <system>0</system> <!-- System_DVB_C_ANNEX_A, System_DVB_C_ANNEX_C -->
-            <service>1:0:1:2D:1:816:FFFF0000:0:0:0</service>
+            <service>1:0:1:1:1:816:FFFF0000:0:0:0</service>
         </transponder>
         
         <transponder>
@@ -227,7 +227,7 @@
             <fec_inner>0</fec_inner> <!-- FEC_Auto=0, FEC_1_2=1, FEC_2_3=2, FEC_3_4=3, FEC_5_6=4, FEC_7_8=5, FEC_8_9=6, FEC_6_7=10, FEC_None=15 -->
             <inversion>2</inversion> <!-- Inversion_Off, Inversion_On, Inversion_Unknown -->
             <system>0</system> <!-- System_DVB_C_ANNEX_A, System_DVB_C_ANNEX_C -->
-            <service>1:0:1:2D:1:816:FFFF0000:0:0:0</service>
+            <service>1:0:1:1:1:816:FFFF0000:0:0:0</service>
         </transponder>
     </cable>
     
