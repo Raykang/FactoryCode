@@ -21,9 +21,9 @@
     
         <transponder>
             <location>china</location>
-            <description>AsiaSat 7(105.5E) Sahara ONE</description>
-            <frequency>4020</frequency>
-            <symbolrate>27250</symbolrate>
+            <description>AsiaSat 7(105.5E) ARYZindagi</description>
+            <frequency>4060</frequency>
+            <symbolrate>26666</symbolrate>
             <polarization>1</polarization> <!-- Polarisation_Horizontal, Polarisation_Vertical, Polarisation_CircularLeft, Polarisation_CircularRight -->
             <fec>0</fec> <!-- FEC_Auto=0, FEC_1_2=1, FEC_2_3=2, FEC_3_4=3, FEC_5_6=4, FEC_7_8=5, FEC_8_9=6, FEC_3_5=7, FEC_4_5=8, FEC_9_10=9, FEC_6_7=10, FEC_None=15 -->
             <inversion>2</inversion> <!-- Inversion_Off, Inversion_On, Inversion_Unknown -->
