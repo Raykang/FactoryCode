@@ -52,7 +52,7 @@ lnb_choices = {'universal_lnb': _('Universal LNB'),
  'unicable': _('Unicable'),
  'c_band': _('C-Band'),
  'user_defined': _('User defined')}
-models = ['g300', 'et10000', 'et8000', 'et9x00', 'et7500', 'et7000', 'et8500', '7000S', '7100S', '7200S', '7300S', '7400S', '7210S']
+models = ['g300', 'et10000', 'et8000', 'et9x00', 'et7500', 'et7000', 'et8500', '7000S', '7100S', '7200S', '7300S', '7400S', '7210S', '7220S']
 JIG_VERSION = '1.0'
 
 class cFactoryTestPlugin(Screen):
@@ -85,7 +85,7 @@ class cFactoryTestPlugin(Screen):
         if os.path.exists('/proc/stb/info/board_revision'):
             if self.boxtype == 'et9x00' or self.boxtype == 'et7500' or self.boxtype == 'et7000' or self.boxtype == 'et8500' or self.boxtype == 'g300':
                 self.hardwareversion = self.readFile('/proc/stb/info/board_revision')
-            elif self.boxtype == '7000S' or self.boxtype == '7100S' or self.boxtype == '7200S' or self.boxtype == '7300S' or self.boxtype == '7400S' or self.boxtype == '7210S':
+            elif self.boxtype == '7000S' or self.boxtype == '7100S' or self.boxtype == '7200S' or self.boxtype == '7300S' or self.boxtype == '7400S' or self.boxtype == '7210S' or self.boxtype == '7220S':
                 self.hardwareversion = self.readFile('/proc/stb/info/board_revision')
             else:
                 self.hardwareversion = '0.' + self.readFile('/proc/stb/info/board_revision')
@@ -350,7 +350,33 @@ class cFactoryTestPlugin(Screen):
              'ok': -1}
             self.has_sata = False             
             self.has_esata = False
-            self.has_security = False              
+            self.has_security = False   
+        elif self.boxtype == '7220S':
+            self.tuners = [['Unknown', 'Unknown'], ['Unknown', 'Unknown']]
+            self.usbslot_names = ['Front', 'Rear']
+            self.usbslot_target = ['1-2', '1-1']
+            self.menu_names = ['Tuner 1',
+             'Tuner 2',            
+             'Front Panel Test',
+             'Front LED Test',             
+             'Factory Default']
+            self.menu_tuner_index = range(0, 2)
+            self.button_count = 5
+            self.buttons = {'menu': -1,
+             'cancel': -1,
+             'power': 0,
+             'volup': 3,
+             'voldown': 4,
+             'channelup': 1,
+             'channeldown': 2,             
+             'left': -1,
+             'right': -1,
+             'up': -1,
+             'down': -1,
+             'ok': -1}
+            self.has_sata = False             
+            self.has_esata = False
+            self.has_security = False               
         elif self.boxtype == '7300S' or self.boxtype == '7400S':
             if nimmanager.hasNimType("DVB-T2"):         
                 self.tuners = [['Unknown', 'Unknown'], ['Unknown', 'Unknown']]
@@ -1041,7 +1067,7 @@ class cFactoryTestPlugin(Screen):
                 self.scislot[slot] = True
                 self.setRightMenuSmartcard(slot, True)
             p.close()
-    	elif self.boxtype == '7000S' or self.boxtype == '7100S' or self.boxtype == '7200S' or self.boxtype == '7300S' or self.boxtype == '7400S' or self.boxtype == '7210S':
+    	elif self.boxtype == '7000S' or self.boxtype == '7100S' or self.boxtype == '7200S' or self.boxtype == '7300S' or self.boxtype == '7400S' or self.boxtype == '7210S' or self.boxtype == '7220S':
             p = os.popen('/usr/lib/enigma2/python/Plugins/Extensions/FactoryTest/sctest /dev/sci%d' % slot)
             ret = p.read()
             if ret.strip() == '1':
@@ -1167,6 +1193,7 @@ class cFactoryTestPlugin(Screen):
             self.type_test = self.TEST_SCART
             if self.scart_type == 0:
                 if self.scart_aspect_ratio == 0:
+                    config.av.aspect.value = "4:3"                
                     scart_aspect_ratio = '4:3'
                     txt = 'Scart CVBS(' + scart_aspect_ratio + ') running\n\nPress OK to next'
                     found = False
@@ -2158,7 +2185,7 @@ class cFactoryTestPlugin(Screen):
         elif self.boxtype == 'et8500':
             if number != 0:
                 self.leftmenu_idx = number - 1
-        elif self.boxtype == '7000S' or self.boxtype == '7100S' or self.boxtype == '7200S' or self.boxtype == '7300S' or self.boxtype == '7400S' or self.boxtype == '7210S':
+        elif self.boxtype == '7000S' or self.boxtype == '7100S' or self.boxtype == '7200S' or self.boxtype == '7300S' or self.boxtype == '7400S' or self.boxtype == '7210S' or self.boxtype == '7220S':
             if number != 0:
                 self.leftmenu_idx = number - 1
         else:
@@ -2205,7 +2232,7 @@ class cFactoryTestPlugin(Screen):
             elif self.boxtype == 'et8500':
                 self.runKeyTestStart = False
                 self.runKeyTest(0)
-            elif self.boxtype == '7000S' or self.boxtype == '7100S' or self.boxtype == '7200S' or self.boxtype == '7300S' or self.boxtype == '7400S' or self.boxtype == '7210S':
+            elif self.boxtype == '7000S' or self.boxtype == '7100S' or self.boxtype == '7200S' or self.boxtype == '7300S' or self.boxtype == '7400S' or self.boxtype == '7210S' or self.boxtype == '7220S':
                 self.runKeyTestStart = False
                 self.runKeyTest(0)                                 
             return
@@ -2300,7 +2327,7 @@ class cFactoryTestPlugin(Screen):
                 self.runAgingTest(1)
             elif self.leftmenu_idx == tuner_count + 2:
                 self.runRemovePlugin()
-        elif self.boxtype == '7000S' or self.boxtype == '7100S' or self.boxtype == '7200S' or self.boxtype == '7300S' or self.boxtype == '7400S':
+        elif self.boxtype == '7000S' or self.boxtype == '7100S' or self.boxtype == '7200S' or self.boxtype == '7300S' or self.boxtype == '7400S' or self.boxtype == '7220S':
             if self.leftmenu_idx in self.menu_tuner_index:
                 self.runTunerTest(1)
             elif self.leftmenu_idx == tuner_count:
