@@ -52,7 +52,7 @@ lnb_choices = {'universal_lnb': _('Universal LNB'),
  'unicable': _('Unicable'),
  'c_band': _('C-Band'),
  'user_defined': _('User defined')}
-models = ['g300', 'et10000', 'et8000', 'et9x00', 'et7500', 'et7000', 'et8500', '7000S', '7100S', '7200S', '7300S', '7400S', '7210S', '7220S', '7005S', '7105S', '7205S', '7305S', '7405S', '7215S', '7225S']
+models = ['g300', 'et10000', 'et8000', 'et9x00', 'et7500', 'et7000', 'et8500', '7000S', '7100S', '7200S', '7300S', '7400S', '7210S', '7220S', '7005S', '7105S', '7205S', '7305S', '7405S', '7215S', '7225S', '8100S', 'e4hd']
 JIG_VERSION = '1.0'
 
 class cFactoryTestPlugin(Screen):
@@ -88,6 +88,8 @@ class cFactoryTestPlugin(Screen):
             elif self.boxtype == '7000S' or self.boxtype == '7100S' or self.boxtype == '7200S' or self.boxtype == '7300S' or self.boxtype == '7400S' or self.boxtype == '7210S' or self.boxtype == '7220S':
                 self.hardwareversion = self.readFile('/proc/stb/info/board_revision')
             elif self.boxtype == '7005S' or self.boxtype == '7105S' or self.boxtype == '7205S' or self.boxtype == '7305S' or self.boxtype == '7405S' or self.boxtype == '7215S' or self.boxtype == '7225S':
+                self.hardwareversion = self.readFile('/proc/stb/info/board_revision')
+            elif self.boxtype == '8100S' or self.boxtype == 'e4hd':
                 self.hardwareversion = self.readFile('/proc/stb/info/board_revision')
             else:
                 self.hardwareversion = '0.' + self.readFile('/proc/stb/info/board_revision')
@@ -474,6 +476,47 @@ class cFactoryTestPlugin(Screen):
             self.has_sata = False             
             self.has_esata = False
             self.has_security = False                           
+        elif self.boxtype == '8100S' or self.boxtype == 'e4hd':
+            if nimmanager.hasNimType("DVB-T2"):         
+                self.tuners = [['Unknown', 'Unknown'], ['Unknown', 'Unknown'], ['Unknown', 'Unknown']]
+            else:
+                self.tuners = [['Unknown', 'Unknown'], ['Unknown', 'Unknown'], ['Unknown', 'Unknown']]
+            self.usbslot_names = ['Side', 'Rear']
+            self.usbslot_target = ['2-1.1', '1-1']
+            if nimmanager.hasNimType("DVB-T2"):  
+                self.menu_names = ['Tuner 1',
+                 'Tuner 2',
+                 'Tuner 3',
+                 'Front Panel Test',
+                 'Front LED Test',             
+                 'Factory Default']
+            else:            
+                self.menu_names = ['Tuner 1',
+                 'Tuner 2',
+                 'Tuner 3',            
+                 'Front Panel Test',
+                 'Front LED Test',             
+                 'Factory Default']
+            if nimmanager.hasNimType("DVB-T2"):     
+                self.menu_tuner_index = range(0, 3)
+            else:
+                self.menu_tuner_index = range(0, 3)
+            self.button_count = 5
+            self.buttons = {'menu': -1,
+             'cancel': -1,
+             'power': 0,
+             'volup': 4,
+             'voldown': 3,
+             'channelup': -1,
+             'channeldown': -1,             
+             'left': 1,
+             'right': 2,
+             'up': -1,
+             'down': -1,
+             'ok': -1}
+            self.has_sata = False             
+            self.has_esata = False
+            self.has_security = False 
         elif self.boxtype == 'et7500':
             self.tuners = [['Unknown', 'Unknown'], ['Unknown', 'Unknown']]
             self.usbslot_names = ['Front', 'Rear']
@@ -796,6 +839,24 @@ class cFactoryTestPlugin(Screen):
                     else:
                         idx = self.menu_tuner_index[0] + x
                         self['menuleft' + str(idx)].setBackgroundColorNum(2) 
+        elif self.boxtype == '8100S' or self.boxtype == 'e4hd':
+            if nimmanager.hasNimType("DVB-T2"):  
+                self.tuners[0][0] = nimmanager.getNimType(0)
+                self.tuners[0][1] = nimmanager.getNimName(0).split()[0]                
+                if nimmanager.hasNimType("DVB-C"):
+                    self.tuners[1][0] = nimmanager.getNimType(1)
+                    self.tuners[1][1] = nimmanager.getNimName(1).split()[0]
+                if nimmanager.hasNimType("DVB-T2"):
+                    self.tuners[2][0] = "DVB-T2"
+                    self.tuners[2][1] = nimmanager.getNimName(1).split()[0]                  
+            else:
+                for x in range(len(self.tuners)):
+                    if x < self.tuner_count:
+                        self.tuners[x][0] = nimmanager.getNimType(x)
+                        self.tuners[x][1] = nimmanager.getNimName(x).split()[0]
+                    else:
+                        idx = self.menu_tuner_index[0] + x
+                        self['menuleft' + str(idx)].setBackgroundColorNum(2)
         else:        
             for x in range(len(self.tuners)):
                 if x < self.tuner_count:
@@ -840,6 +901,23 @@ class cFactoryTestPlugin(Screen):
                             self['menuleft' + str(x)].setText(' ' + str(x + 1) + '. ' + self.menu_names[x] + ' Test')
                     else:
                         self['menuleft' + str(x)].setText(' ' + str(x + 1) + '. ' + self.menu_names[x])  
+            elif self.boxtype == '8100S' or self.boxtype == 'e4hd':
+                if nimmanager.hasNimType("DVB-T2"):            
+                    if x in self.menu_tuner_index:
+                        if x - self.menu_tuner_index[0] < self.tuner_count+1:
+                            self['menuleft' + str(x)].setText(' ' + str(x + 1) + '. ' + self.menu_names[x] + ' (' + self.tuners[x - self.menu_tuner_index[0]][0] + ') Test')
+                        else:
+                            self['menuleft' + str(x)].setText(' ' + str(x + 1) + '. ' + self.menu_names[x] + ' Test')
+                    else:
+                        self['menuleft' + str(x)].setText(' ' + str(x + 1) + '. ' + self.menu_names[x])
+                else:
+                    if x in self.menu_tuner_index:
+                        if x - self.menu_tuner_index[0] < self.tuner_count:
+                            self['menuleft' + str(x)].setText(' ' + str(x + 1) + '. ' + self.menu_names[x] + ' (' + self.tuners[x - self.menu_tuner_index[0]][0] + ') Test')
+                        else:
+                            self['menuleft' + str(x)].setText(' ' + str(x + 1) + '. ' + self.menu_names[x] + ' Test')
+                    else:
+                        self['menuleft' + str(x)].setText(' ' + str(x + 1) + '. ' + self.menu_names[x])  
             else:
                 if x in self.menu_tuner_index:
                     if x - self.menu_tuner_index[0] < self.tuner_count:
@@ -863,11 +941,18 @@ class cFactoryTestPlugin(Screen):
 
     def statusCallback(self):
         self.Console = Console()
-        if self.local_ip_eth0 == '0.0.0.0':
-            self.Console.ePopen('ip -o addr show dev eth0', self.NetworkStatedataAvail, ['eth0', None])
-        if self.has_eth1 is True:
-            if self.local_ip_eth1 == '0.0.0.0':
-                self.Console.ePopen('ip -o addr show dev eth1', self.NetworkStatedataAvail, ['eth1', None])
+        if self.boxtype == '8100S' or self.boxtype == 'e4hd':
+            if self.local_ip_eth0 == '0.0.0.0':
+                self.Console.ePopen('ip addr show dev eth0', self.NetworkStatedataAvail, ['eth0', None])
+            if self.has_eth1 is True:
+                if self.local_ip_eth1 == '0.0.0.0':
+                    self.Console.ePopen('ip addr show dev eth1', self.NetworkStatedataAvail, ['eth1', None])
+        else:
+            if self.local_ip_eth0 == '0.0.0.0':
+                self.Console.ePopen('ip -o addr show dev eth0', self.NetworkStatedataAvail, ['eth0', None])
+            if self.has_eth1 is True:
+                if self.local_ip_eth1 == '0.0.0.0':
+                    self.Console.ePopen('ip -o addr show dev eth1', self.NetworkStatedataAvail, ['eth1', None])
         if self.scislots > 0:
             if self.scislot[0] is False:
                 self.runSmartcardTest(0)
@@ -964,6 +1049,40 @@ class cFactoryTestPlugin(Screen):
                             txt = txt + 'Press OK to next'
                         self['message'].setText(self.tune_text + txt)
                         self.play_service()                           
+            elif self.boxtype == '8100S' or self.boxtype == 'e4hd':
+                type = self.tuners[self.tuner_nr][0]
+                self.frontend.getFrontendStatus(self.frontendStatus)
+                self.lockState.update()
+                if type == 'DVB-T' or type == 'DVB-T2':
+                    txt = '\nvoltage state: 5V enable\n\n'
+                    if type == 'DVB-S' or type == 'DVB-S2':
+                        tuner_type = 'satellite'
+                    elif type == 'DVB-C' or type == 'DVB-C2':
+                        tuner_type = 'cable'
+                    elif type == 'DVB-T' or type == 'DVB-T2':
+                        tuner_type = 'terrestrial'
+                    if self.tune_index + 1 == self.getCount(tuner_type, self.location.lower()):
+                        txt = txt + 'Press OK to stop'
+                    else:
+                        txt = txt + 'Press OK to next'
+                    self['message'].setText(self.tune_text + txt)
+                    if self.lockState.getValue(TunerInfo.LOCK) == 1:
+                        self.play_service()
+                else:                  
+                    if self.lockState.getValue(TunerInfo.LOCK) == 1:
+                        txt = '\nLockstate: Locked\n\n'
+                        if type == 'DVB-S' or type == 'DVB-S2':
+                            tuner_type = 'satellite'
+                        elif type == 'DVB-C' or type == 'DVB-C2':
+                            tuner_type = 'cable'
+                        elif type == 'DVB-T' or type == 'DVB-T2':
+                            tuner_type = 'terrestrial'
+                        if self.tune_index + 1 == self.getCount(tuner_type, self.location.lower()):
+                            txt = txt + 'Press OK to stop'
+                        else:
+                            txt = txt + 'Press OK to next'
+                        self['message'].setText(self.tune_text + txt)
+                        self.play_service()
             elif self.frontend is not None:
                 self.frontend.getFrontendStatus(self.frontendStatus)
                 self.lockState.update()
@@ -1208,14 +1327,23 @@ class cFactoryTestPlugin(Screen):
                 self.scislot[slot] = True
                 self.setRightMenuSmartcard(slot, True)
             p.close()             
+        elif self.boxtype == '8100S' or self.boxtype == 'e4hd':
+            self.smartcard = self.readFile('/proc/smartcard')
+            if self.smartcard == '1':
+                self.scislot[slot] = True
+                self.setRightMenuSmartcard(slot, True)
             
     def runUsbTest(self, slot):
         ret = self.readlog(slot)
         if ret != '':
             for x in ret:
                 if 'new' in x and 'USB device' in x:
-                    if self.usbslot_target[slot] in x.split(':')[3].split(' ')[2]:
-                        self.usbslot_target_found[slot] = True
+                    if self.boxtype == '8100S' or self.boxtype == 'e4hd':
+                        if self.usbslot_target[slot] in x.split(':')[3].split('usb ')[1]:
+                            self.usbslot_target_found[slot] = True
+                    else:
+                        if self.usbslot_target[slot] in x.split(':')[3].split(' ')[2]:
+                            self.usbslot_target_found[slot] = True
                 if 'Attached' in x and self.usbslot_target_found[slot] is True:
                     self.usbslot[slot] = True
                     self.setRightMenuUsb(slot, True)
@@ -1682,6 +1810,14 @@ class cFactoryTestPlugin(Screen):
                 if fileExists("/dev/dbox/oled0"):
                     self.clock = "88:88"
                     self.vfd_write(self.clock)                    
+            elif self.boxtype == '8100S' or self.boxtype == 'e4hd':
+                if fileExists("/proc/stb/lcd/oled_brightness"):
+                    f = open("/proc/stb/lcd/oled_brightness", "w")
+                    f.write("255")
+                    f.close()              
+                if fileExists("/dev/dbox/oled0"):
+                    self.clock = "88:88"
+                    self.vfd_write(self.clock)                    
             self.showMessage()
             self['message'].setText('Front Display Test running\n\nWhile testing, the screen is off\nAfter screen off, press OK or Directrion key (UP/DOWN) to test stop, then the screen is on\n\nPress OK to continue test\nPress Direction Key(UP/DOWN) to stop')
             self.type_test = self.TEST_FRONT_LED
@@ -1735,13 +1871,13 @@ class cFactoryTestPlugin(Screen):
 
     def setKuBandLnb(self, idx, satpos, khz):
         nim = nimmanager.nim_slots[idx]
-        nimConfig = nim.config
+        nimConfig = nim.config.dvbs
         nimConfig.configMode.value = 'simple'
         nimConfig.diseqcMode.value = 'single'
         nimConfig.diseqcA.value = satpos
 
     def setCbandLnb(self, idx, satpos, khz):
-        nim = config.Nims[idx]
+        nim = config.Nims[idx].dvbs
         nim.configMode.value = 'advanced'
         nim.advanced = ConfigSubsection()
         nim.advanced.sat = ConfigSubDict()
@@ -1764,7 +1900,7 @@ class cFactoryTestPlugin(Screen):
             tmp.lnb = lnb
             nim.advanced.sat[x[0]] = tmp
 
-        for x in range(3601, 4000):
+        for x in range(3601, 4100):
             tmp = ConfigSubsection()
             tmp.voltage = ConfigSelection(advanced_voltage_choices, 'polarization')
             tmp.tonemode = ConfigSelection(advanced_tonemode_choices, 'band')
@@ -1786,8 +1922,8 @@ class cFactoryTestPlugin(Screen):
         section.commitedDiseqcCommand = ConfigSelection(advanced_lnb_csw_choices, 'none')
         if int(khz) == 1:
             tmp = ConfigSelection(advanced_lnb_diseqcmode_choices, '1_0')
-            if self.location.lower() == 'korealab':
-                if int(satpos) == 1006:
+            if self.location.lower() == 'korea':
+                if int(satpos) == 1056:
                     section.commitedDiseqcCommand = ConfigSelection(advanced_lnb_csw_choices, 'AA')
                 else:
                     section.commitedDiseqcCommand = ConfigSelection(advanced_lnb_csw_choices, 'AB')
@@ -1834,8 +1970,18 @@ class cFactoryTestPlugin(Screen):
                 if type == 'DVB-T2' or type == 'DVB-T':
                     idx = id
                 typeList.append((id, type))                
+        elif self.boxtype == '8100S' or self.boxtype == 'e4hd':
+            eDVBResourceManager.getInstance().setFrontendType(nimmanager.nim_slots[self.tuner_nr].frontend_id, 'DVB-C')
+            nimmanager.nim_slots[self.tuner_nr].type = 'DVB-C'
+            idx = 0
+            typeList = []
+            for id in nimmanager.nim_slots[self.tuner_nr].getMultiTypeList().keys():
+                type = nimmanager.nim_slots[self.tuner_nr].getMultiTypeList()[id]
+                if type == 'DVB-T2' or type == 'DVB-T':
+                    idx = id
+                typeList.append((id, type))                
             
-        nim = config.Nims[self.tuner_nr]
+        nim = config.Nims[self.tuner_nr].dvbc
         nim.configMode = ConfigSelection(choices={'enabled': _('enabled'),
          'nothing': _('nothing connected')}, default='enabled')
         nim.cable = ConfigSubsection()
@@ -1876,6 +2022,8 @@ class cFactoryTestPlugin(Screen):
             self.tuner_nr  = 0
         elif self.boxtype == '7225S' or self.boxtype == '7105S' or self.boxtype == '7205S' or self.boxtype == '7215S':
             self.tuner_nr  = 1              
+        elif self.boxtype == '8100S' or self.boxtype == 'e4hd':
+            self.tuner_nr  = 1
         eDVBResourceManager.getInstance().setFrontendType(nimmanager.nim_slots[self.tuner_nr].frontend_id, 'DVB-T2')
         nimmanager.nim_slots[self.tuner_nr].type = 'DVB-T2'
         idx = 0
@@ -1889,7 +2037,7 @@ class cFactoryTestPlugin(Screen):
         nim = config.Nims[self.tuner_nr]
         nim.multiType = ConfigSelection(typeList, str(idx))
         nim.multiType.fe_id = self.tuner_nr
-        nim.configMode = ConfigSelection(choices={'enabled': _('enabled'),
+        nim.dvbt.configMode = ConfigSelection(choices={'enabled': _('enabled'),
          'nothing': _('nothing connected')}, default='enabled')
         list = []
         n = 0
@@ -1902,6 +2050,8 @@ class cFactoryTestPlugin(Screen):
             nim.terrestrial_5V = ConfigOnOff(True)
         elif self.boxtype == '7005S' or self.boxtype == '7305S' or self.boxtype == '7405S' or self.boxtype == '7225S' or self.boxtype == '7105S' or self.boxtype == '7205S' or self.boxtype == '7215S':
             nim.terrestrial_5V = ConfigOnOff(True)            
+        elif self.boxtype == '8100S' or self.boxtype == 'e4hd':
+            nim.terrestrial_5V = ConfigOnOff(True)            
         else:
             nim.terrestrial_5V = ConfigOnOff(default=False)
         if self.boxtype == '7000S' or self.boxtype == '7300S' or self.boxtype == '7400S':
@@ -1912,6 +2062,8 @@ class cFactoryTestPlugin(Screen):
             self.tuner_nr  = 1
         elif self.boxtype == '7225S' or self.boxtype == '7105S' or self.boxtype == '7205S' or self.boxtype == '7215S':
             self.tuner_nr  = 2  
+        elif self.boxtype == '8100S' or self.boxtype == 'e4hd':
+            self.tuner_nr  = 2
             
     def openFrontend(self):
         print '>>>>>>>>>>>>> OPEN FRONTEND, %d <<<<<<<<<<<<<<<<<<' % self.tuner_nr
@@ -1932,6 +2084,10 @@ class cFactoryTestPlugin(Screen):
             type = self.tuners[self.tuner_nr][0]
             if type == 'DVB-T2' or type == 'DVB-T':
                 self.tuner_nr  = 1                 
+        elif self.boxtype == '8100S' or self.boxtype == 'e4hd':
+            type = self.tuners[self.tuner_nr][0]
+            if type == 'DVB-T2' or type == 'DVB-T':
+                self.tuner_nr  = 1
         if res_mgr:
             self.raw_channel = res_mgr.allocateRawChannel(self.tuner_nr)
             if self.raw_channel:
@@ -1947,6 +2103,9 @@ class cFactoryTestPlugin(Screen):
                         if type == 'DVB-T2' or type == 'DVB-T':                    
                             self.tuner_nr  = 1                   
                     elif self.boxtype == '7225S' or self.boxtype == '7105S' or self.boxtype == '7205S' or self.boxtype == '7215S':                            
+                        if type == 'DVB-T2' or type == 'DVB-T':                    
+                            self.tuner_nr  = 2                                
+                    elif self.boxtype == '8100S' or self.boxtype == 'e4hd':
                         if type == 'DVB-T2' or type == 'DVB-T':                    
                             self.tuner_nr  = 2                                
                     return True
@@ -1965,6 +2124,9 @@ class cFactoryTestPlugin(Screen):
             if type == 'DVB-T2' or type == 'DVB-T':        
                 self.tuner_nr  = 1   
         elif self.boxtype == '7225S' or self.boxtype == '7105S' or self.boxtype == '7205S' or self.boxtype == '7215S':                
+            if type == 'DVB-T2' or type == 'DVB-T':        
+                self.tuner_nr  = 2                   
+        elif self.boxtype == '8100S' or self.boxtype == 'e4hd':
             if type == 'DVB-T2' or type == 'DVB-T':        
                 self.tuner_nr  = 2                   
         return False
@@ -2387,6 +2549,9 @@ class cFactoryTestPlugin(Screen):
         elif self.boxtype == '7005S' or self.boxtype == '7105S' or self.boxtype == '7205S' or self.boxtype == '7305S' or self.boxtype == '7405S' or self.boxtype == '7215S' or self.boxtype == '7225S':
             if number != 0:
                 self.leftmenu_idx = number - 1                
+        elif self.boxtype == '8100S' or self.boxtype == 'e4hd':
+            if number != 0:
+                self.leftmenu_idx = number - 1                
         else:
             return
         self.setMenuItem(self.leftmenu_idx)
@@ -2447,6 +2612,12 @@ class cFactoryTestPlugin(Screen):
                 self.setButton(self.buttons['ok'])
                 self.front_ok_key_idx = self.front_ok_key_idx + 1
                 if self.front_ok_key_idx > 6:
+                    self.runKeyTestStart = False                 
+                    self.runKeyTest(0)                                                           
+            elif self.boxtype == '8100S' or self.boxtype == 'e4hd':
+                self.setButton(self.buttons['ok'])
+                self.front_ok_key_idx = self.front_ok_key_idx + 1
+                if self.front_ok_key_idx > 5:
                     self.runKeyTestStart = False                 
                     self.runKeyTest(0)                                                           
             return
@@ -2607,6 +2778,17 @@ class cFactoryTestPlugin(Screen):
                 self.runFrontLEDTest(1)
             elif self.leftmenu_idx == tuner_count + 2:
                 self.runRemovePlugin()                
+        elif self.boxtype == '8100S' or self.boxtype == 'e4hd':
+            if self.leftmenu_idx in self.menu_tuner_index:
+                self.runTunerTest(1)
+            elif self.leftmenu_idx == tuner_count:
+                self.front_ok_key_idx = 0
+                self.runKeyTest(1)
+                self.runKeyTestStart = True
+            elif self.leftmenu_idx == tuner_count + 1:
+                self.runFrontLEDTest(1)
+            elif self.leftmenu_idx == tuner_count + 2:
+                self.runRemovePlugin()
 
     def keyUp(self):
         if self.want_ok is True:

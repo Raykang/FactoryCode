@@ -7,7 +7,7 @@
             <frequency>3706</frequency>
             <symbolrate>6000</symbolrate>
             <polarization>0</polarization> <!-- Polarisation_Horizontal, Polarisation_Vertical, Polarisation_CircularLeft, Polarisation_CircularRight -->
-            <fec>0</fec> <!-- FEC_Auto=0, FEC_1_2=1, FEC_2_3=2, FEC_3_4=3, FEC_5_6=4, FEC_7_8=5, FEC_8_9=6, FEC_3_5=7, FEC_4_5=8, FEC_9_10=9, FEC_6_7=10, FEC_None=15 -->
+            <fec>3</fec> <!-- FEC_Auto=0, FEC_1_2=1, FEC_2_3=2, FEC_3_4=3, FEC_5_6=4, FEC_7_8=5, FEC_8_9=6, FEC_3_5=7, FEC_4_5=8, FEC_9_10=9, FEC_6_7=10, FEC_None=15 -->
             <inversion>2</inversion> <!-- Inversion_Off, Inversion_On, Inversion_Unknown -->
             <satpos>1056</satpos>
             <system>0</system> <!-- System_DVB_S, System_DVB_S2 -->
@@ -25,7 +25,7 @@
             <frequency>4060</frequency>
             <symbolrate>26666</symbolrate>
             <polarization>1</polarization> <!-- Polarisation_Horizontal, Polarisation_Vertical, Polarisation_CircularLeft, Polarisation_CircularRight -->
-            <fec>0</fec> <!-- FEC_Auto=0, FEC_1_2=1, FEC_2_3=2, FEC_3_4=3, FEC_5_6=4, FEC_7_8=5, FEC_8_9=6, FEC_3_5=7, FEC_4_5=8, FEC_9_10=9, FEC_6_7=10, FEC_None=15 -->
+            <fec>3</fec> <!-- FEC_Auto=0, FEC_1_2=1, FEC_2_3=2, FEC_3_4=3, FEC_5_6=4, FEC_7_8=5, FEC_8_9=6, FEC_3_5=7, FEC_4_5=8, FEC_9_10=9, FEC_6_7=10, FEC_None=15 -->
             <inversion>2</inversion> <!-- Inversion_Off, Inversion_On, Inversion_Unknown -->
             <satpos>1056</satpos>
             <system>0</system> <!-- System_DVB_S, System_DVB_S2 -->
@@ -42,7 +42,7 @@
             <frequency>3760</frequency>
             <symbolrate>26000</symbolrate>
             <polarization>0</polarization> <!-- Polarisation_Horizontal, Polarisation_Vertical, Polarisation_CircularLeft, Polarisation_CircularRight -->
-            <fec>0</fec> <!-- FEC_Auto=0, FEC_1_2=1, FEC_2_3=2, FEC_3_4=3, FEC_5_6=4, FEC_7_8=5, FEC_8_9=6, FEC_3_5=7, FEC_4_5=8, FEC_9_10=9, FEC_6_7=10, FEC_None=15 -->
+            <fec>5</fec> <!-- FEC_Auto=0, FEC_1_2=1, FEC_2_3=2, FEC_3_4=3, FEC_5_6=4, FEC_7_8=5, FEC_8_9=6, FEC_3_5=7, FEC_4_5=8, FEC_9_10=9, FEC_6_7=10, FEC_None=15 -->
             <inversion>2</inversion> <!-- Inversion_Off, Inversion_On, Inversion_Unknown -->
             <satpos>1056</satpos>
             <system>0</system> <!-- System_DVB_S, System_DVB_S2 -->
@@ -56,11 +56,11 @@
     
         <transponder>
             <location>korea</location>
-            <description>AsiaSat 7(105.5E) Fashion TV SD</description>
-            <frequency>3745</frequency>
-            <symbolrate>2626</symbolrate>
+            <description>AsiaSat 7(105.5E) ARYZindagi</description>
+            <frequency>4060</frequency>
+            <symbolrate>26666</symbolrate>
             <polarization>1</polarization> <!-- Polarisation_Horizontal, Polarisation_Vertical, Polarisation_CircularLeft, Polarisation_CircularRight -->
-            <fec>0</fec> <!-- FEC_Auto=0, FEC_1_2=1, FEC_2_3=2, FEC_3_4=3, FEC_5_6=4, FEC_7_8=5, FEC_8_9=6, FEC_3_5=7, FEC_4_5=8, FEC_9_10=9, FEC_6_7=10, FEC_None=15 -->
+            <fec>3</fec> <!-- FEC_Auto=0, FEC_1_2=1, FEC_2_3=2, FEC_3_4=3, FEC_5_6=4, FEC_7_8=5, FEC_8_9=6, FEC_3_5=7, FEC_4_5=8, FEC_9_10=9, FEC_6_7=10, FEC_None=15 -->
             <inversion>2</inversion> <!-- Inversion_Off, Inversion_On, Inversion_Unknown -->
             <satpos>1056</satpos>
             <system>0</system> <!-- System_DVB_S, System_DVB_S2 -->
@@ -69,7 +69,7 @@
             <pilot>2</pilot> <!-- Pilot_Off, Pilot_On, Pilot_Unknown -->
             <band>c</band>
             <khz>0</khz>
-            <service>1:0:1:1:1:1:4208EA1:0:0:0</service>
+            <service>1:0:1:1:FFFF:1:4208FB4:0:0:0</service>
         </transponder>
         
         <transponder>
@@ -235,7 +235,7 @@
         <transponder>
             <location>korea</location>
             <description>Terrestrial Tuner(DVB-T/T2) Test</description>
-            <frequency>490000</frequency>
+            <frequency>235000</frequency>
             <inversion>2</inversion> <!-- Inversion_Off, Inversion_On, Inversion_Unknown -->
             <bandwidth>0</bandwidth> <!-- Bandwidth_8MHz, Bandwidth_7MHz, Bandwidth_6MHz, Bandwidth_Auto, Bandwidth_5MHz, Bandwidth_1_712MHz, Bandwidth_10MHz -->
             <coderateHP>5</coderateHP> <!-- FEC_1_2=0, FEC_2_3=1, FEC_3_4=2, FEC_5_6=3, FEC_7_8=4, FEC_Auto=5, FEC_6_7=6, FEC_8_9=7 -->
@@ -246,13 +246,13 @@
             <hierarchy>4</hierarchy> <!-- Hierarchy_None, Hierarchy_1, Hierarchy_2, Hierarchy_4, Hierarchy_Auto -->
             <system>1</system> <!-- System_DVB_T, System_DVB_T2 -->
             <plpid>0</plpid> 
-            <service>1:0:1:113F:1004:233A:EEEE0000:0:0:0</service>
+            <service>1:0:16:23:3:2268:EEEE0000:0:0:0</service>
         </transponder>
         
         <transponder>
             <location>korealab</location>
             <description>Terrestrial Tuner(DVB-T/T2) Test</description>
-            <frequency>490000</frequency>
+            <frequency>235000</frequency>
             <inversion>2</inversion> <!-- Inversion_Off, Inversion_On, Inversion_Unknown -->
             <bandwidth>0</bandwidth> <!-- Bandwidth_8MHz, Bandwidth_7MHz, Bandwidth_6MHz, Bandwidth_Auto, Bandwidth_5MHz, Bandwidth_1_712MHz, Bandwidth_10MHz -->
             <coderateHP>5</coderateHP> <!-- FEC_1_2=0, FEC_2_3=1, FEC_3_4=2, FEC_5_6=3, FEC_7_8=4, FEC_Auto=5, FEC_6_7=6, FEC_8_9=7 -->
@@ -263,13 +263,13 @@
             <hierarchy>4</hierarchy> <!-- Hierarchy_None, Hierarchy_1, Hierarchy_2, Hierarchy_4, Hierarchy_Auto -->
             <system>1</system> <!-- System_DVB_T, System_DVB_T2 -->
             <plpid>0</plpid> 
-            <service>1:0:1:113F:1004:233A:EEEE0000:0:0:0</service>
+            <service>1:0:16:23:3:2268:EEEE0000:0:0:0</service>
         </transponder>
         
         <transponder>
             <location>china</location>
             <description>Terrestrial Tuner(DVB-T/T2) Test</description>
-            <frequency>490000</frequency>
+            <frequency>235000</frequency>
             <inversion>2</inversion> <!-- Inversion_Off, Inversion_On, Inversion_Unknown -->
             <bandwidth>0</bandwidth> <!-- Bandwidth_8MHz, Bandwidth_7MHz, Bandwidth_6MHz, Bandwidth_Auto, Bandwidth_5MHz, Bandwidth_1_712MHz, Bandwidth_10MHz -->
             <coderateHP>5</coderateHP> <!-- FEC_1_2=0, FEC_2_3=1, FEC_3_4=2, FEC_5_6=3, FEC_7_8=4, FEC_Auto=5, FEC_6_7=6, FEC_8_9=7 -->
@@ -280,13 +280,13 @@
             <hierarchy>4</hierarchy> <!-- Hierarchy_None, Hierarchy_1, Hierarchy_2, Hierarchy_4, Hierarchy_Auto -->
             <system>0</system> <!-- System_DVB_T, System_DVB_T2 -->
             <plpid>0</plpid> 
-            <service>1:0:1:113F:1004:233A:EEEE0000:0:0:0</service>
+            <service>1:0:16:23:3:2268:EEEE0000:0:0:0</service>
         </transponder>
         
         <transponder>
             <location>europe</location>
             <description>Terrestrial Tuner(DVB-T/T2) Test</description>
-            <frequency>490000</frequency>
+            <frequency>235000</frequency>
             <inversion>2</inversion> <!-- Inversion_Off, Inversion_On, Inversion_Unknown -->
             <bandwidth>0</bandwidth> <!-- Bandwidth_8MHz, Bandwidth_7MHz, Bandwidth_6MHz, Bandwidth_Auto, Bandwidth_5MHz, Bandwidth_1_712MHz, Bandwidth_10MHz -->
             <coderateHP>5</coderateHP> <!-- FEC_1_2=0, FEC_2_3=1, FEC_3_4=2, FEC_5_6=3, FEC_7_8=4, FEC_Auto=5, FEC_6_7=6, FEC_8_9=7 -->
@@ -297,7 +297,7 @@
             <hierarchy>4</hierarchy> <!-- Hierarchy_None, Hierarchy_1, Hierarchy_2, Hierarchy_4, Hierarchy_Auto -->
             <system>1</system> <!-- System_DVB_T, System_DVB_T2 -->
             <plpid>0</plpid> 
-            <service>1:0:1:113F:1004:233A:EEEE0000:0:0:0</service>
+            <service>1:0:16:23:3:2268:EEEE0000:0:0:0</service>
         </transponder>
     </terrestrial>
 </xml>
