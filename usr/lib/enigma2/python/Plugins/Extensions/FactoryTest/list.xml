@@ -3,11 +3,11 @@
     <satellite>
         <transponder>
             <location>china</location>
-            <description>AsiaSat 7(105.5E) CNAI PAL</description>
-            <frequency>3706</frequency>
-            <symbolrate>6000</symbolrate>
+            <description>AsiaSat 7(105.5E) HD Phx Chinese Channel</description>
+            <frequency>4120</frequency>
+            <symbolrate>27500</symbolrate>
             <polarization>0</polarization> <!-- Polarisation_Horizontal, Polarisation_Vertical, Polarisation_CircularLeft, Polarisation_CircularRight -->
-            <fec>3</fec> <!-- FEC_Auto=0, FEC_1_2=1, FEC_2_3=2, FEC_3_4=3, FEC_5_6=4, FEC_7_8=5, FEC_8_9=6, FEC_3_5=7, FEC_4_5=8, FEC_9_10=9, FEC_6_7=10, FEC_None=15 -->
+            <fec>5</fec> <!-- FEC_Auto=0, FEC_1_2=1, FEC_2_3=2, FEC_3_4=3, FEC_5_6=4, FEC_7_8=5, FEC_8_9=6, FEC_3_5=7, FEC_4_5=8, FEC_9_10=9, FEC_6_7=10, FEC_None=15 -->
             <inversion>2</inversion> <!-- Inversion_Off, Inversion_On, Inversion_Unknown -->
             <satpos>1056</satpos>
             <system>0</system> <!-- System_DVB_S, System_DVB_S2 -->
@@ -16,7 +16,7 @@
             <pilot>2</pilot> <!-- Pilot_Off, Pilot_On, Pilot_Unknown -->
             <band>c</band>
             <khz>1</khz>
-            <service>1:0:1:1:1:1:4200E7A:0:0:0</service>
+            <service>1:0:1:2:5:1:4201018:0:0:0</service>
         </transponder>
     
         <transponder>
@@ -38,9 +38,9 @@
         </transponder>
         <transponder>
             <location>korea</location>
-            <description>AsiaSat 7(105.5E) DW (Asien)</description>
-            <frequency>3760</frequency>
-            <symbolrate>26000</symbolrate>
+            <description>AsiaSat 7(105.5E) HD Phx Chinese Channel</description>
+            <frequency>4120</frequency>
+            <symbolrate>27500</symbolrate>
             <polarization>0</polarization> <!-- Polarisation_Horizontal, Polarisation_Vertical, Polarisation_CircularLeft, Polarisation_CircularRight -->
             <fec>5</fec> <!-- FEC_Auto=0, FEC_1_2=1, FEC_2_3=2, FEC_3_4=3, FEC_5_6=4, FEC_7_8=5, FEC_8_9=6, FEC_3_5=7, FEC_4_5=8, FEC_9_10=9, FEC_6_7=10, FEC_None=15 -->
             <inversion>2</inversion> <!-- Inversion_Off, Inversion_On, Inversion_Unknown -->
@@ -51,7 +51,7 @@
             <pilot>2</pilot> <!-- Pilot_Off, Pilot_On, Pilot_Unknown -->
             <band>c</band> 
             <khz>1</khz>
-            <service>1:0:1:1E:1:1:4200EB0:0:0:0</service>
+            <service>1:0:1:2:5:1:4201018:0:0:0</service>
         </transponder>
     
         <transponder>
@@ -280,7 +280,7 @@
             <hierarchy>4</hierarchy> <!-- Hierarchy_None, Hierarchy_1, Hierarchy_2, Hierarchy_4, Hierarchy_Auto -->
             <system>0</system> <!-- System_DVB_T, System_DVB_T2 -->
             <plpid>0</plpid> 
-            <service>1:0:16:23:3:2268:EEEE0000:0:0:0</service>
+            <service>1:0:19:1:3:2268:EEEE0000:0:0:0</service>
         </transponder>
         
         <transponder>

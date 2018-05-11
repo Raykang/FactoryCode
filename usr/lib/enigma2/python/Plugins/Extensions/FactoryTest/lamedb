@@ -42,6 +42,9 @@ ffff0000:0001:0816
 04208fb4:ffff:0001
 	s 4020000:27250000:1:3:1056:2:0
 /
+04201018:0005:0001
+	s 4120000:27500000:0:5:1056:2:0
+/
 end
 services
 0008:03ee0fa0:0001:ffff:1:0
@@ -50,8 +53,8 @@ p:Satlink
 0001:ffff0000:0001:0816:1:0
 EVS1
 p:Î´¶¨Òå,f:40
-0023:eeee0000:0003:2268:22:0:0
-TVP Info
+0001:eeee0000:0003:2268:25:0:0
+TVP1 HD
 p:EmiTel,f:40
 0001:03ee8e4c:0001:ffff:1:0
 DUBAI TV
@@ -86,5 +89,8 @@ p:GCHK,f:40
 0001:04208ea1:0001:0001:1:0
 FashionTV SD 
 p:Satlink,f:40
+0002:04201018:0005:0001:1:0:0
+HD Phx Chinese Channel
+p:Phoenix Satellite Television Co Ltd,f:40
 end
 Have a lot of bugs!
